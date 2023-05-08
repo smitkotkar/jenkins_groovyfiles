@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage ('pull') {
             steps {
-                git branch: 'main', url: 'https://github.com/smitkotkar/jenkins.git'
+                git branch: 'main', credentialsId: 'id_rsa', url: 'git@github.com:smitkotkar/jenkins_groovyfiles.git'
             }
         }
         stage ('build') {
             steps {
-                sh '/opt/apache-maven/bin/mvn clean package'
+                sh 'mvn clean package'
             }
         }
         stage ('test') {
