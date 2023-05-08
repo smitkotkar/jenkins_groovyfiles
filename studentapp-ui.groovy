@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('pull') {
             steps {
-                git branch: 'main', credentialsId: 'id_rsa', url: 'git@github.com:smitkotkar/jenkins_groovyfiles.git'
+                git branch: 'main', url: 'https://github.com/smitkotkar/studentapp-ui.git'
             }
         }
         stage ('build') {
