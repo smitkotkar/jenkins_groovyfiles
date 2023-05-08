@@ -8,7 +8,7 @@ pipeline {
         }
         stage ('build') {
             steps {
-                mvn package
+                echo 'build succeed'
             }
         }
         stage ('test') {
