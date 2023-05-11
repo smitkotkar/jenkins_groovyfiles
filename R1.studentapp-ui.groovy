@@ -18,11 +18,11 @@ pipeline {
                 }  
             }
         }
-        // stage ('quality-gate') {
-        //     steps {
-        //         waitForQualityGate abortPipeline: true
-        //     }
-        // }
+        stage ('quality-gate') {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
         stage ('deploy') {
             steps {
                 echo 'deploy succeed'
