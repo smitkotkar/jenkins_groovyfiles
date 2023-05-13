@@ -1,0 +1,87 @@
+pipelineJob('student-app_converted') {
+
+  description('')
+
+  displayName('student-app_converted')
+
+  keepDependencies(false)
+
+  quietPeriod(0)
+
+  checkoutRetryCount(0)
+
+  disabled(false)
+
+  concurrentBuild(false)
+
+  configure { flowdefinition ->
+
+    flowdefinition / 'actions' << 'org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction'(plugin:'pipeline-model-definition')
+
+    flowdefinition / 'actions' << 'org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction'(plugin:'pipeline-model-definition') {
+
+      'jobProperties'()
+
+      'triggers'()
+
+      'parameters'()
+
+      'options'()
+
+    }
+
+    flowdefinition / 'properties' << 'com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty'(plugin:'gitlab-plugin') {
+
+      'gitLabConnection'()
+
+      'jobCredentialId'()
+
+      'useAlternativeCredential'(false)
+
+    }
+
+    flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+
+      'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+
+        'configVersion'(2)
+
+        'userRemoteConfigs' {
+
+          'hudson.plugins.git.UserRemoteConfig' {
+
+            'url'('https://github.com/smitkotkar/jenkins_groovyfiles.git')
+
+            'credentialsId'('id_rsa')
+
+          }
+
+        }
+
+        'branches' {
+
+          'hudson.plugins.git.BranchSpec' {
+
+            'name'('*/main')
+
+          }
+
+        }
+
+        'doGenerateSubmoduleConfigurations'(false)
+
+        'submoduleCfg'(class:'empty-list')
+
+        'extensions'()
+
+      }
+
+      'scriptPath'('R1.studentapp-ui.groovy')
+
+      'lightweight'(true)
+
+    }
+
+  }
+
+}
