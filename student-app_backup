@@ -8,11 +8,7 @@ pipelineJob('student-app_converted') {
 
   quietPeriod(0)
 
-  checkoutRetryCount(0)
-
   disabled(false)
-
-  concurrentBuild(false)
 
   configure { flowdefinition ->
 
